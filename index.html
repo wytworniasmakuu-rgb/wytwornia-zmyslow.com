@@ -7,59 +7,47 @@
 
   <style>
     body {
-      font-family: 'Georgia', serif;
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       text-align: center;
-      background: #fff8dc; /* jasny żółty wiosenny */
-      color: #2e3e2f; /* ciemna zieleń dla tekstu */
+      background: #faf7f5;
     }
 
-    h1 { margin-top: 30px; font-size: 2.5em; color: #d94141; /* wiosenna czerwień */ }
-    p { font-size: 1.2em; color: #4b7022; }
-
-    .products {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 20px;
-      gap: 20px;
+    h1 {
+      margin-top: 30px;
     }
 
     .product {
-      border: 1px solid #d9b48f;
-      border-radius: 15px;
-      padding: 15px;
-      background: #f0fff0; /* jasna zieleń wiosenna */
+      border: 1px solid #ddd;
+      margin: 20px;
+      padding: 20px;
+      background: white;
+      display: inline-block;
       width: 280px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
 
-    .product img { width: 100%; border-radius: 10px; }
-
-    .price { font-weight: bold; margin: 10px 0; font-size: 1.2em; color: #d94141; }
+    .price {
+      font-weight: bold;
+      margin: 10px 0;
+    }
 
     button {
       padding: 10px 15px;
-      background: #4b7022; /* ciemna zieleń */
+      background: #c59d5f;
       color: white;
       border: none;
-      border-radius: 8px;
       cursor: pointer;
-      font-size: 1em;
-      transition: 0.3s;
     }
-    button:hover { background: #3b501a; }
 
-    /* AVATAR ADRIANA */
+    /* === AVATAR ADRIANA === */
     .avatar-container {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      z-index: 10000;
+      z-index: 9999;
       width: 180px;
       height: 180px;
-      overflow: hidden;
     }
 
     #avatar {
@@ -74,15 +62,22 @@
       transition: transform 0.3s;
     }
 
-    #avatar:hover { transform: scale(1.05); }
-    #avatar.talking { transform: scale(1.05) translateY(2px); filter: brightness(1.1); }
+    #avatar:hover {
+      transform: scale(1.05);
+    }
 
-    /* KOSZYK */
+    /* animacja „mówiących ust” */
+    #avatar.talking {
+      transform: scale(1.05) translateY(2px);
+      filter: brightness(1.1);
+    }
+
+    /* === KOSZYK === */
     #cart-icon {
       position: fixed;
       top: 15px;
       right: 15px;
-      background: #d94141; /* czerwień */
+      background: #c59d5f;
       color: white;
       padding: 10px;
       border-radius: 50%;
@@ -100,7 +95,6 @@
       padding: 15px;
       width: 260px;
       z-index: 6000;
-      border-radius: 10px;
     }
   </style>
 </head>
@@ -108,96 +102,104 @@
 <body>
 
   <h1>Wytwórnia Zmysłów</h1>
-  <p>Ręcznie robione świece, mydełka i zestawy prezentowe</p>
+  <p>Ręcznie tworzone zestawy prezentowe</p>
 
-  <div class="products">
-    <div class="product">
-      <img src="https://images.unsplash.com/photo-1591181444517-c3b083d07e27?auto=format&fit=crop&w=400&q=80" alt="Świece sojowe">
-      <h3>Świece sojowe</h3>
-      <p>Ręcznie robione, pachnące świece</p>
-      <div class="price">49 zł</div>
-      <button onclick="addToCart('Świece sojowe', 49)">Dodaj do koszyka</button>
-    </div>
-
-    <div class="product">
-      <img src="https://images.unsplash.com/photo-1617196035102-0d042ae6f0be?auto=format&fit=crop&w=400&q=80" alt="Mydełka">
-      <h3>Mydełka</h3>
-      <p>Naturalne, ręcznie robione mydełka</p>
-      <div class="price">25 zł</div>
-      <button onclick="addToCart('Mydełka', 25)">Dodaj do koszyka</button>
-    </div>
-
-    <div class="product">
-      <img src="https://images.unsplash.com/photo-1611252059431-7f2cbf2a226b?auto=format&fit=crop&w=400&q=80" alt="Zestawy prezentowe">
-      <h3>Zestawy prezentowe</h3>
-      <p>Eleganckie zestawy idealne na prezent</p>
-      <div class="price">99 zł</div>
-      <button onclick="addToCart('Zestawy prezentowe', 99)">Dodaj do koszyka</button>
-    </div>
-  </div>
-
-  <!-- Koszyk -->
-  <div id="cart-icon" onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
-  <div id="cart-popup">
-    <h3>Twój koszyk</h3>
-    <ul id="cart-items"></ul>
-    <p>Suma: <span id="cart-total">0</span> zł</p>
-    <form action="https://formspree.io/f/mkoooggja" method="POST">
-      <input type="hidden" id="cart-message" name="message">
-      <label>Imię i nazwisko:</label><br>
-      <input type="text" name="name" required><br><br>
-      <label>Email:</label><br>
-      <input type="email" name="email" required><br><br>
-      <button type="submit">Wyślij zamówienie</button>
-    </form>
-  </div>
-
-  <!-- Avatar Adriany -->
+  <!-- AVATAR ADRIANA -->
   <div class="avatar-container">
     <img src="https://i.imgur.com/8Yw4QkR.png" alt="Adriana – avatar" id="avatar">
   </div>
 
+  <!-- PRODUKT -->
+  <div class="product">
+    <img src="images/zestaw.png" alt="Zestawy prezentowe" width="200">
+    <h3>Zestawy prezentowe</h3>
+    <p>Eleganckie zestawy idealne na prezent</p>
+    <div class="price">99 zł</div>
+    <button onclick="addToCart('Zestawy prezentowe', 99)">
+      Dodaj do koszyka
+    </button>
+  </div>
+
+  <!-- KOSZYK -->
+  <div id="cart-icon" onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
+
+  <div id="cart-popup">
+    <h3>Twój koszyk</h3>
+    <ul id="cart-items"></ul>
+    <p>Suma: <span id="cart-total">0</span> zł</p>
+
+    <form action="https://formspree.io/f/mkoooggja" method="POST">
+      <input type="hidden" id="cart-message" name="message">
+
+      <label>Imię i nazwisko:</label><br>
+      <input type="text" name="name" required><br><br>
+
+      <label>Email:</label><br>
+      <input type="email" name="email" required><br><br>
+
+      <button type="submit">Wyślij zamówienie</button>
+    </form>
+  </div>
+
+  <!-- SCRIPT -->
   <script>
-    let cart = [];
+    document.addEventListener("DOMContentLoaded", () => {
+      let cart = [];
 
-    function addToCart(name, price) {
-      cart.push({ name, price });
-      updateCart();
-    }
+      function addToCart(name, price) {
+        cart.push({ name, price });
+        updateCart();
+      }
 
-    function updateCart() {
-      const items = document.getElementById("cart-items");
-      const total = document.getElementById("cart-total");
-      const count = document.getElementById("cart-count");
+      function updateCart() {
+        const items = document.getElementById("cart-items");
+        const total = document.getElementById("cart-total");
+        const count = document.getElementById("cart-count");
 
-      items.innerHTML = "";
-      let sum = 0;
-      cart.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = item.name + " – " + item.price + " zł";
-        items.appendChild(li);
-        sum += item.price;
+        items.innerHTML = "";
+        let sum = 0;
+
+        cart.forEach(item => {
+          const li = document.createElement("li");
+          li.textContent = item.name + " – " + item.price + " zł";
+          items.appendChild(li);
+          sum += item.price;
+        });
+
+        total.textContent = sum;
+        count.textContent = cart.length;
+
+        document.getElementById("cart-message").value =
+          cart.map(i => i.name + " (" + i.price + " zł)").join(", ");
+      }
+
+      window.toggleCart = function () {
+        const popup = document.getElementById("cart-popup");
+        popup.style.display = popup.style.display === "block" ? "none" : "block";
+      }
+
+      // --- AWATAR ADRIANA ---
+      const avatar = document.getElementById("avatar");
+      avatar.addEventListener("click", () => {
+        // dodanie klasy talking
+        avatar.classList.add("talking");
+
+        const utter = new SpeechSynthesisUtterance(
+          "Witaj! Nazywam się Adriana i zapraszam Cię do mojej Wytwórni Zmysłów. Dziękuję, że jesteś."
+        );
+        utter.lang = "pl-PL";
+
+        // po zakończeniu mowy usuwa klasę talking
+        utter.onend = () => {
+          avatar.classList.remove("talking");
+        }
+
+        speechSynthesis.speak(utter);
       });
-      total.textContent = sum;
-      count.textContent = cart.length;
-      document.getElementById("cart-message").value = cart.map(i => i.name + " (" + i.price + " zł)").join(", ");
-    }
 
-    function toggleCart() {
-      const popup = document.getElementById("cart-popup");
-      popup.style.display = popup.style.display === "block" ? "none" : "block";
-    }
-
-    const avatar = document.getElementById("avatar");
-    avatar.addEventListener("click", () => {
-      avatar.classList.add("talking");
-      const utter = new SpeechSynthesisUtterance(
-        "Witaj! Nazywam się Adriana i zapraszam Cię do mojej Wytwórni Zmysłów. Dziękuję, że jesteś."
-      );
-      utter.lang = "pl-PL";
-      utter.onend = () => avatar.classList.remove("talking");
-      speechSynthesis.speak(utter);
+      window.addToCart = addToCart;
     });
   </script>
+
 </body>
 </html>
