@@ -40,39 +40,21 @@
       cursor: pointer;
     }
 
-    /* === AVATAR ADRIANA === */
+    /* AVATAR */
     .avatar-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 9999;
-      width: 180px;
-      height: 180px;
+      margin: 30px 0;
     }
 
     #avatar {
-      width: 100%;
-      height: 100%;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
       object-fit: cover;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
       cursor: pointer;
-      display: block;
-      background: #eee;
-      transition: transform 0.3s;
     }
 
-    #avatar:hover {
-      transform: scale(1.05);
-    }
-
-    /* animacja „mówiących ust” */
-    #avatar.talking {
-      transform: scale(1.05) translateY(2px);
-      filter: brightness(1.1);
-    }
-
-    /* === KOSZYK === */
+    /* KOSZYK */
     #cart-icon {
       position: fixed;
       top: 15px;
@@ -82,7 +64,6 @@
       padding: 10px;
       border-radius: 50%;
       cursor: pointer;
-      z-index: 5000;
     }
 
     #cart-popup {
@@ -94,7 +75,7 @@
       border: 1px solid #ddd;
       padding: 15px;
       width: 260px;
-      z-index: 6000;
+      z-index: 1000;
     }
   </style>
 </head>
@@ -104,9 +85,9 @@
   <h1>Wytwórnia Zmysłów</h1>
   <p>Ręcznie tworzone zestawy prezentowe</p>
 
-  <!-- AVATAR ADRIANA -->
+  <!-- AVATAR -->
   <div class="avatar-container">
-    <img src="https://i.imgur.com/8Yw4QkR.png" alt="Adriana – avatar" id="avatar">
+    <img src="avatar.png" alt="Wytwórnia Zmysłów – avatar" id="avatar">
   </div>
 
   <!-- PRODUKT -->
@@ -115,9 +96,7 @@
     <h3>Zestawy prezentowe</h3>
     <p>Eleganckie zestawy idealne na prezent</p>
     <div class="price">99 zł</div>
-    <button onclick="addToCart('Zestawy prezentowe', 99)">
-      Dodaj do koszyka
-    </button>
+    <button onclick="addToCart('Zestawy prezentowe', 99)">Dodaj do koszyka</button>
   </div>
 
   <!-- KOSZYK -->
@@ -143,61 +122,48 @@
 
   <!-- SCRIPT -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      let cart = [];
+    let cart = [];
 
-      function addToCart(name, price) {
-        cart.push({ name, price });
-        updateCart();
-      }
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      updateCart();
+    }
 
-      function updateCart() {
-        const items = document.getElementById("cart-items");
-        const total = document.getElementById("cart-total");
-        const count = document.getElementById("cart-count");
+    function updateCart() {
+      const items = document.getElementById("cart-items");
+      const total = document.getElementById("cart-total");
+      const count = document.getElementById("cart-count");
 
-        items.innerHTML = "";
-        let sum = 0;
+      items.innerHTML = "";
+      let sum = 0;
 
-        cart.forEach(item => {
-          const li = document.createElement("li");
-          li.textContent = item.name + " – " + item.price + " zł";
-          items.appendChild(li);
-          sum += item.price;
-        });
-
-        total.textContent = sum;
-        count.textContent = cart.length;
-
-        document.getElementById("cart-message").value =
-          cart.map(i => i.name + " (" + i.price + " zł)").join(", ");
-      }
-
-      window.toggleCart = function () {
-        const popup = document.getElementById("cart-popup");
-        popup.style.display = popup.style.display === "block" ? "none" : "block";
-      }
-
-      // --- AWATAR ADRIANA ---
-      const avatar = document.getElementById("avatar");
-      avatar.addEventListener("click", () => {
-        // dodanie klasy talking
-        avatar.classList.add("talking");
-
-        const utter = new SpeechSynthesisUtterance(
-          "Witaj! Nazywam się Adriana i zapraszam Cię do mojej Wytwórni Zmysłów. Dziękuję, że jesteś."
-        );
-        utter.lang = "pl-PL";
-
-        // po zakończeniu mowy usuwa klasę talking
-        utter.onend = () => {
-          avatar.classList.remove("talking");
-        }
-
-        speechSynthesis.speak(utter);
+      cart.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item.name + " – " + item.price + " zł";
+        items.appendChild(li);
+        sum += item.price;
       });
 
-      window.addToCart = addToCart;
+      total.textContent = sum;
+      count.textContent = cart.length;
+
+      document.getElementById("cart-message").value =
+        cart.map(i => i.name + " (" + i.price + " zł)").join(", ");
+    }
+
+    function toggleCart() {
+      const popup = document.getElementById("cart-popup");
+      popup.style.display = popup.style.display === "block" ? "none" : "block";
+    }
+
+    function speakWithAnimation(text) {
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = "pl-PL";
+      speechSynthesis.speak(utter);
+    }
+
+    document.getElementById("avatar").addEventListener("click", () => {
+      speakWithAnimation("Cześć! Witaj w Wytwórni Zmysłów. Zobacz nasze wyjątkowe zestawy prezentowe.");
     });
   </script>
 
