@@ -11,31 +11,37 @@
       margin: 0;
       padding: 0;
       text-align: center;
-      background: #eac1c5; /* piwoniowy kolor */
-      color: #4b2e2f;
+      background: #fff8dc; /* jasny żółty wiosenny */
+      color: #2e3e2f; /* ciemna zieleń dla tekstu */
     }
 
-    h1 { margin-top: 30px; font-size: 2.5em; }
-    p { font-size: 1.2em; }
+    h1 { margin-top: 30px; font-size: 2.5em; color: #d94141; /* wiosenna czerwień */ }
+    p { font-size: 1.2em; color: #4b7022; }
 
-    .products { display: flex; flex-wrap: wrap; justify-content: center; margin: 20px; gap: 20px; }
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 20px;
+      gap: 20px;
+    }
 
     .product {
-      border: 1px solid #d8b4b7;
+      border: 1px solid #d9b48f;
       border-radius: 15px;
       padding: 15px;
-      background: #fff0f2;
+      background: #f0fff0; /* jasna zieleń wiosenna */
       width: 280px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
 
     .product img { width: 100%; border-radius: 10px; }
 
-    .price { font-weight: bold; margin: 10px 0; font-size: 1.2em; }
+    .price { font-weight: bold; margin: 10px 0; font-size: 1.2em; color: #d94141; }
 
     button {
       padding: 10px 15px;
-      background: #c59d5f;
+      background: #4b7022; /* ciemna zieleń */
       color: white;
       border: none;
       border-radius: 8px;
@@ -43,7 +49,7 @@
       font-size: 1em;
       transition: 0.3s;
     }
-    button:hover { background: #a37a42; }
+    button:hover { background: #3b501a; }
 
     /* AVATAR ADRIANA */
     .avatar-container {
@@ -76,7 +82,7 @@
       position: fixed;
       top: 15px;
       right: 15px;
-      background: #c59d5f;
+      background: #d94141; /* czerwień */
       color: white;
       padding: 10px;
       border-radius: 50%;
@@ -106,7 +112,7 @@
 
   <div class="products">
     <div class="product">
-      <img src="https://images.unsplash.com/photo-1606813902174-3e54b36fa273?auto=format&fit=crop&w=400&q=80" alt="Świece sojowe">
+      <img src="https://images.unsplash.com/photo-1591181444517-c3b083d07e27?auto=format&fit=crop&w=400&q=80" alt="Świece sojowe">
       <h3>Świece sojowe</h3>
       <p>Ręcznie robione, pachnące świece</p>
       <div class="price">49 zł</div>
@@ -114,7 +120,7 @@
     </div>
 
     <div class="product">
-      <img src="https://images.unsplash.com/photo-1596369938351-0b85e86f11f4?auto=format&fit=crop&w=400&q=80" alt="Mydełka">
+      <img src="https://images.unsplash.com/photo-1617196035102-0d042ae6f0be?auto=format&fit=crop&w=400&q=80" alt="Mydełka">
       <h3>Mydełka</h3>
       <p>Naturalne, ręcznie robione mydełka</p>
       <div class="price">25 zł</div>
@@ -122,7 +128,7 @@
     </div>
 
     <div class="product">
-      <img src="https://images.unsplash.com/photo-1620111335392-c6e5b7e6e9b3?auto=format&fit=crop&w=400&q=80" alt="Zestawy prezentowe">
+      <img src="https://images.unsplash.com/photo-1611252059431-7f2cbf2a226b?auto=format&fit=crop&w=400&q=80" alt="Zestawy prezentowe">
       <h3>Zestawy prezentowe</h3>
       <p>Eleganckie zestawy idealne na prezent</p>
       <div class="price">99 zł</div>
