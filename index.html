@@ -11,208 +11,22 @@ body {
   margin: 0; padding: 0;
   color: #4a2c18;
 }
-/* Nagłówki */
-h1,h2,h3 {
-  font-family: 'Playfair Display', serif;
-  color: #4a2c18;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
+h1,h2,h3 { font-family: 'Playfair Display', serif; color: #4a2c18; transition: color 0.3s, transform 0.3s; }
 h1:hover,h2:hover,h3:hover { color:#8c6239; transform:translateY(-3px);}
-h1 {margin-top:40px;font-size:2.8em;text-align:center;}
-h2 {margin-top:60px;font-size:2em;text-align:center;}
-h3 {margin:10px 0 5px 0;font-size:1.3em;}
-/* Produkty */
-.products {
-  display:flex; justify-content:center; gap:30px; padding:60px 0; flex-wrap:wrap;
-}
-.product {
-  background:white; width:260px; padding:20px; border-radius:16px;
-  box-shadow:0 5px 20px rgba(0,0,0,0.1); text-align:center;
-  transition:transform 0.3s ease, box-shadow 0.3s ease;
-}
-.product:hover { transform:translateY(-7px); box-shadow:0 10px 25px rgba(0,0,0,0.15);}
-.product img {width:100%; border-radius:16px; border:2px solid #f2ebe6; transition:transform 0.3s ease;}
-.product img:hover {transform:scale(1.05);}
-.price { font-weight:bold; margin-top:10px; font-size:1.1em;}
-button {
-  margin-top:10px; padding:10px 20px; border:none; border-radius:8px;
-  background:linear-gradient(to bottom,#b78c60,#a67c52);
-  color:white; cursor:pointer; box-shadow:0 5px 10px rgba(0,0,0,0.2);
-  font-size:1em; transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
-}
-button:hover {
-  background:linear-gradient(to bottom,#a67c52,#8c6239);
-  box-shadow:0 6px 12px rgba(0,0,0,0.3); transform:translateY(-3px);
-}
-/* Koszyk */
-#cart-icon {
-  position:fixed; top:20px; right:20px; width:50px; height:50px; background:#a67c52;
-  color:white; border-radius:50%; display:flex; align-items:center; justify-content:center;
-  font-size:1.5em; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.3); z-index:1000;
-}
-#cart-count {
-  position:absolute; top:-5px; right:-5px; background:red; color:white;
-  border-radius:50%; width:18px; height:18px; font-size:0.8em;
-  display:flex; align-items:center; justify-content:center;
-}
-#cart-popup {
-  position:fixed; top:80px; right:20px; width:300px; background:white;
-  border-radius:16px; box-shadow:0 5px 25px rgba(0,0,0,0.3);
-  padding:20px; display:none; z-index:1000;
-}
-#cart-popup ul { list-style:none; padding:0; margin:0; }
-#cart-popup li { margin:10px 0; }
-#cart-popup button { margin-left:10px; padding:3px 8px; font-size:0.9em; }
-/* Avatar mówiący */
-#avatar-container {
-  position:fixed; bottom:20px; left:20px; z-index:1000;
-}
-#avatar {
-  width:80px; height:80px; border-radius:50%; background:#b78c60;
-  cursor:pointer; position:relative; overflow:hidden;
-  display:flex; align-items:center; justify-content:center;
-}
-#avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
-#mouth {
-  position:absolute; bottom:15px; left:50%; width:20px; height:6px;
-  background:#4a2c18; border-radius:50%; transform:translateX(-50%);
-}
-#avatar-bubble {
-  position:absolute; bottom:100px; left:0; background:#fff3e6;
-  padding:10px 15px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.2);
-  display:none; font-size:0.9em; max-width:200px;
-}
-.mouth-move { animation: mouthMove 0.4s infinite alternate; }
-@keyframes mouthMove { 0%{height:6px} 50%{height:12px} 100%{height:6px} }
-
-@media(max-width:500px){
-  .products{gap:15px;}
-  .product{width:90%;}
-  #cart-popup{width:90%; right:5%;}
-  #avatar-bubble{max-width:150px;}
-}
-</style>
-</head>
-<body>
-
-<h1>Wytwórnia Zmysłów</h1>
-<p style="text-align:center;">Naturalne produkty • luksusowy minimalizm</p>
-
-<div class="products">
-  <div class="product">
-    <img src="https://i5.walmartimages.com/seo/Valentines-2-6in-Heart-Shaped-Candle-Love-Heart-Candles-Romantic-Decorative-Rose-Heart-Candle-for-Valentine-s-Day-Gift-Wedding-Anniversary-Party_80502db6-7151-4b45-ae4a-92bafec32f72.c3c4917a735d979baf6cb267949ad661.jpeg" alt="Świece zapachowe">
-    <h3>Świece zapachowe</h3>
-    <p>Romantyczne światła, idealne do bannerów i promocji</p>
-    <div class="price">47 zł</div>
-    <button onclick="addToCart('Świece zapachowe',47)">Dodaj do koszyka</button>
-  </div>
-  <div class="product">
-    <img src="https://i.etsystatic.com/24524280/r/il/33bfd2/2644767267/il_570xN.2644767267_i7vb.jpg" alt="Mydła naturalne">
-    <h3>Mydła naturalne</h3>
-    <p>Ręcznie robione, delikatne dla skóry</p>
-    <div class="price">17 zł</div>
-    <button onclick="addToCart('Mydła naturalne',17)">Dodaj do koszyka</button>
-  </div>
-  <div class="product">
-    <img src="https://i.etsystatic.com/18085352/r/il/f65100/2651943032/il_fullxfull.2651943032_slld.jpg" alt="Zestawy prezentowe">
-    <h3>Zestawy prezentowe</h3>
-    <p>Eleganckie zestawy idealne na prezent</p>
-    <div class="price">97 zł</div>
-    <button onclick="addToCart('Zestawy prezentowe',97)">Dodaj do koszyka</button>
-  </div>
-</div>
-
-<div id="cart-icon">🛒<span id="cart-count">0</span></div>
-
-<div id="cart-popup">
-  <h3>Twój koszyk</h3>
-  <ul id="cart-items"></ul>
-  <p>Suma: <span id="cart-total">0</span> zł</p>
-  <form id="cart-form" action="https://formspree.io/f/your-unique-link" method="POST">
-    <input type="hidden" id="cart-message" name="message">
-    <label for="name">Imię i nazwisko:</label>
-    <input type="text" id="name" name="name" required>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-    <button type="submit" id="submit-order">Wyślij zamówienie</button>
-  </form>
-</div>
-
-<!-- Avatar mówiący -->
-<div id="avatar-container">
-  <div id="avatar">
-    <img src="https://i.ibb.co/0nPZ7L2/avatar.png" alt="Avatar">
-    <div id="mouth"></div>
-  </div>
-  <div id="avatar-bubble"></div>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  let cart=[];
-
-  const avatar=document.getElementById('avatar');
-  const bubble=document.getElementById('avatar-bubble');
-  const mouth=document.getElementById('mouth');
-
-  avatar.addEventListener('click', ()=>{bubble.style.display=bubble.style.display==='block'?'none':'block';});
-
-  function showAvatarMessage(msg, duration=4000){
-    bubble.textContent=msg;
-    bubble.style.display='block';
-    mouth.classList.add('mouth-move');
-    setTimeout(()=>{bubble.style.display='none'; mouth.classList.remove('mouth-move');},duration);
-  }
-
-  // Powitanie przy wejściu na stronę
-  showAvatarMessage("Witaj! Nazywam się Adriana i zapraszam Cię do mojej wytwórni zmysłów. Dziękuję, że jesteś.", 5000);
-
-  window.addToCart=function(name,price){
-    cart.push({name,price});
-    updateCart();
-    const icon=document.getElementById('cart-icon');
-    icon.style.transform='scale(1.3)';
-    setTimeout(()=>{icon.style.transform='scale(1)';},300);
-    showAvatarMessage(`Dodano ${name} do koszyka!`,2500);
-  };
-
-  function updateCart(){
-    const cartItems=document.getElementById('cart-items');
-    const cartTotal=document.getElementById('cart-total');
-    const cartCount=document.getElementById('cart-count');
-    const cartMessage=document.getElementById('cart-message');
-    const submitBtn=document.getElementById('submit-order');
-
-    cartItems.innerHTML='';
-    let total=0;
-    cart.forEach((item,index)=>{
-      total+=item.price;
-      const li=document.createElement('li');
-      li.textContent=item.name+' - '+item.price+' zł';
-      const removeBtn=document.createElement('button');
-      removeBtn.textContent='Usuń';
-      removeBtn.onclick=()=>{cart=cart.filter((_,i)=>i!==index); updateCart();};
-      li.appendChild(removeBtn);
-      cartItems.appendChild(li);
-    });
-    cartTotal.textContent=total;
-    cartCount.textContent=cart.length;
-    let message='Produkty w koszyku:\n';
-    cart.forEach(item=>{message+=item.name+' - '+item.price+' zł\n';});
-    cartMessage.value=message;
-    submitBtn.disabled=cart.length===0;
-  }
-
-  window.toggleCart=function(){
-    const popup=document.getElementById('cart-popup');
-    popup.style.display=popup.style.display==='block'?'none':'block';
-  };
-  window.addEventListener('click', function(event){
-    const popup=document.getElementById('cart-popup');
-    const icon=document.getElementById('cart-icon');
-    if(!popup.contains(event.target) && !icon.contains(event.target)){popup.style.display='none';}
-  });
-});
-</script>
-</body>
-</html>
+h1{margin-top:40px;font-size:2.8em;text-align:center;}
+h2{margin-top:60px;font-size:2em;text-align:center;}
+h3{margin:10px 0 5px 0;font-size:1.3em;}
+.products{display:flex;justify-content:center;gap:30px;padding:60px 0;flex-wrap:wrap;}
+.product{background:white;width:260px;padding:20px;border-radius:16px;box-shadow:0 5px 20px rgba(0,0,0,0.1);text-align:center;transition:transform 0.3s,box-shadow 0.3s;}
+.product:hover{transform:translateY(-7px);box-shadow:0 10px 25px rgba(0,0,0,0.15);}
+.product img{width:100%;border-radius:16px;border:2px solid #f2ebe6;transition:transform 0.3s;}
+.product img:hover{transform:scale(1.05);}
+.price{font-weight:bold;margin-top:10px;font-size:1.1em;}
+button{margin-top:10px;padding:10px 20px;border:none;border-radius:8px;background:linear-gradient(to bottom,#b78c60,#a67c52);color:white;cursor:pointer;box-shadow:0 5px 10px rgba(0,0,0,0.2);font-size:1em;transition:background 0.3s,box-shadow 0.3s,transform 0.2s;}
+button:hover{background:linear-gradient(to bottom,#a67c52,#8c6239);box-shadow:0 6px 12px rgba(0,0,0,0.3);transform:translateY(-3px);}
+#cart-icon{position:fixed;top:20px;right:20px;width:50px;height:50px;background:#a67c52;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5em;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.3);z-index:1000;}
+#cart-count{position:absolute;top:-5px;right:-5px;background:red;color:white;border-radius:50%;width:18px;height:18px;font-size:0.8em;display:flex;align-items:center;justify-content:center;}
+#cart-popup{position:fixed;top:80px;right:20px;width:300px;background:white;border-radius:16px;box-shadow:0 5px 25px rgba(0,0,0,0.3);padding:20px;display:none;z-index:1000;}
+#cart-popup ul{list-style:none;padding:0;margin:0;}
+#cart-popup li{margin:10px 0;}
+#cart-popup bu
