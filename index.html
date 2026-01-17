@@ -15,63 +15,144 @@ body {
   color: #5a2c3a;
 }
 
-h1 {
+h1,h2,h3 {
   font-family: 'Playfair Display', serif;
-  text-align: center;
-  font-size: 2.8em;
-  margin-top: 50px;
+  color:#5a2c3a;
+  transition: color 0.3s, transform 0.3s;
+}
+h1:hover,h2:hover,h3:hover {
+  color:#a15c74;
+  transform: translateY(-3px);
+}
+h1{margin-top:40px;font-size:2.8em;text-align:center;}
+h2{margin-top:60px;font-size:2em;text-align:center;}
+h3{margin:10px 0 5px 0;font-size:1.3em;}
+
+.products{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:60px 0;
+  flex-wrap:wrap;
 }
 
-p.subtitle {
-  text-align: center;
-  font-size: 1.1em;
-  opacity: 0.9;
+.product{
+  background:white;
+  width:260px;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align:center;
 }
 
-/* Avatar */
-#avatar-container {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  z-index: 1000;
+.product:hover{
+  transform:translateY(-7px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
 }
 
-#avatar {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  border: 4px solid #c08a9a;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-  cursor: pointer;
-  transition: transform 0.2s;
+.product img{
+  width:100%;
+  border-radius:16px;
+  border:2px solid #f2ebe6;
 }
 
-#avatar:hover {
-  transform: scale(1.05);
+.price{
+  font-weight:bold;
+  margin-top:10px;
+  font-size:1.1em;
 }
 
-/* animacja mówienia */
-.talking {
+button{
+  margin-top:10px;
+  padding:10px 20px;
+  border:none;
+  border-radius:8px;
+  background:linear-gradient(to bottom,#c08a9a,#a15c74);
+  color:white;
+  cursor:pointer;
+  box-shadow:0 5px 10px rgba(0,0,0,0.2);
+  font-size:1em;
+  transition:all 0.3s;
+}
+
+button:hover{
+  background:linear-gradient(to bottom,#a15c74,#8f465d);
+  transform:translateY(-3px);
+}
+
+#cart-icon{
+  position:fixed;
+  top:20px;
+  right:20px;
+  width:50px;
+  height:50px;
+  background:#a15c74;
+  color:white;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.5em;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,0.3);
+  z-index:1000;
+}
+
+#cart-count{
+  position:absolute;
+  top:-5px;
+  right:-5px;
+  background:#7a3249;
+  color:white;
+  border-radius:50%;
+  width:18px;
+  height:18px;
+  font-size:0.8em;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+#cart-popup{
+  position:fixed;
+  top:80px;
+  right:20px;
+  width:300px;
+  background:white;
+  border-radius:16px;
+  box-shadow:0 5px 25px rgba(0,0,0,0.3);
+  padding:20px;
+  display:none;
+  z-index:1000;
+}
+
+#cart-popup ul{list-style:none;padding:0;margin:0;}
+#cart-popup li{margin:10px 0;}
+
+.avatar-container{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  width:120px;
+  cursor:pointer;
+  z-index:1000;
+}
+
+.avatar-container img{
+  width:100%;
+  border-radius:50%;
+  border:4px solid #c08a9a;
+  box-shadow:0 6px 18px rgba(0,0,0,0.25);
+}
+
+.avatar-container img.talking{
   animation: talk 0.2s infinite alternate;
 }
 
-@keyframes talk {
-  from { transform: scaleY(0.97); }
-  to   { transform: scaleY(1.03); }
-}
-
-/* chmurka */
-#speech-bubble {
-  position: absolute;
-  bottom: 130px;
-  left: 0;
-  background: #fff;
-  padding: 14px 18px;
-  border-radius: 18px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-  max-width: 260px;
-  font-size: 0.95em;
-  display: none;
+@keyframes talk{
+  from{transform:scaleY(0.97);}
+  to{transform:scaleY(1.03);}
 }
 </style>
 </head>
@@ -79,45 +160,100 @@ p.subtitle {
 <body>
 
 <h1>Wytwórnia Zmysłów</h1>
-<p class="subtitle">Naturalność • emocje • subtelny luksus</p>
+<p style="text-align:center;">Naturalne produkty • subtelny luksus</p>
 
-<div id="avatar-container">
-  <div id="speech-bubble">
-    Witaj. Jestem Adriana i zapraszam Cię do mojej wytwórni zmysłów. Dziękuję że jesteś
+<div class="products">
+  <div class="product">
+    <img src="images/swieca.png">
+    <h3>Świece zapachowe</h3>
+    <p>Romantyczne światła</p>
+    <div class="price">49 zł</div>
+    <button onclick="addToCart('Świece zapachowe',49)">Dodaj do koszyka</button>
   </div>
 
-  <!-- LUDZIK – możesz później podmienić na własne zdjęcie -->
+  <div class="product">
+    <img src="images/mydlo.png">
+    <h3>Mydła naturalne</h3>
+    <p>Ręcznie robione</p>
+    <div class="price">19 zł</div>
+    <button onclick="addToCart('Mydła naturalne',19)">Dodaj do koszyka</button>
+  </div>
+
+  <div class="product">
+    <img src="images/zestaw.png">
+    <h3>Zestawy prezentowe</h3>
+    <p>Idealne na prezent</p>
+    <div class="price">99 zł</div>
+    <button onclick="addToCart('Zestawy prezentowe',99)">Dodaj do koszyka</button>
+  </div>
+</div>
+
+<div id="cart-icon" onclick="toggleCart()">🛒<span id="cart-count">0</span></div>
+
+<div id="cart-popup">
+  <h3>Twój koszyk</h3>
+  <ul id="cart-items"></ul>
+  <p>Suma: <span id="cart-total">0</span> zł</p>
+</div>
+
+<div class="avatar-container">
   <img
     src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80"
-    alt="Adriana"
     id="avatar"
-  >
+    alt="Adriana">
 </div>
 
 <script>
-const avatar = document.getElementById("avatar");
-const bubble = document.getElementById("speech-bubble");
+let cart=[];
 
-function speak() {
-  const text = "Witaj. Jestem Adriana i zapraszam Cię do mojej wytwórni zmysłów. Dziękuję że jesteś";
+function addToCart(name,price){
+  cart.push({name,price});
+  updateCart();
+}
 
-  const synth = window.speechSynthesis;
+function updateCart(){
+  const items=document.getElementById('cart-items');
+  const totalEl=document.getElementById('cart-total');
+  const count=document.getElementById('cart-count');
+  items.innerHTML='';
+  let total=0;
+
+  cart.forEach(item=>{
+    total+=item.price;
+    const li=document.createElement('li');
+    li.textContent=item.name+' – '+item.price+' zł';
+    items.appendChild(li);
+  });
+
+  totalEl.textContent=total;
+  count.textContent=cart.length;
+}
+
+function toggleCart(){
+  const popup=document.getElementById('cart-popup');
+  popup.style.display=popup.style.display==='block'?'none':'block';
+}
+
+function speak(){
+  const avatar=document.getElementById('avatar');
+  const text="Witaj. Jestem Adriana i zapraszam Cię do mojej wytwórni zmysłów. Dziękuję że jesteś";
+  const synth=window.speechSynthesis;
   synth.cancel();
 
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = "pl-PL";
-  utterance.rate = 0.95;
-  utterance.pitch = 1.05;
+  const utter=new SpeechSynthesisUtterance(text);
+  utter.lang="pl-PL";
+  utter.rate=0.95;
+  utter.pitch=1.05;
 
-  bubble.style.display = "block";
-  avatar.classList.add("talking");
+  let interval=setInterval(()=>avatar.classList.toggle('talking'),200);
+  utter.onend=()=>{clearInterval(interval);avatar.classList.remove('talking');};
 
-  utterance.onend = () => {
-    avatar.classList.remove("talking");
-    setTimeout(() => {
-      bubble.style.display = "none";
-    }, 500);
-  };
-
-  synth.speak(utterance);
+  synth.speak(utter);
 }
+
+document.getElementById('avatar').addEventListener('click',speak);
+window.addEventListener('load',()=>setTimeout(speak,1200));
+</script>
+
+</body>
+</html>
