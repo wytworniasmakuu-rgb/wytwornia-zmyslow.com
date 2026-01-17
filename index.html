@@ -168,4 +168,92 @@ button:hover{
     <h3>Świece zapachowe</h3>
     <p>Romantyczne światła</p>
     <div class="price">49 zł</div>
-    <button onclick="addToCart('Świece zapachowe',49)">Dod
+    <button onclick="addToCart('Świece zapachowe',49)">Dodaj do koszyka</button>
+  </div>
+
+  <div class="product">
+    <img src="images/mydlo.png">
+    <h3>Mydła naturalne</h3>
+    <p>Ręcznie robione</p>
+    <div class="price">19 zł</div>
+    <button onclick="addToCart('Mydła naturalne',19)">Dodaj do koszyka</button>
+  </div>
+
+  <div class="product">
+    <img src="images/zestaw.png">
+    <h3>Zestawy prezentowe</h3>
+    <p>Idealne na prezent</p>
+    <div class="price">99 zł</div>
+    <button onclick="addToCart('Zestawy prezentowe',99)">Dodaj do koszyka</button>
+  </div>
+</div>
+
+<div id="cart-icon" onclick="toggleCart()">🛒<span id="cart-count">0</span></div>
+
+<div id="cart-popup">
+  <h3>Twój koszyk</h3>
+  <ul id="cart-items"></ul>
+  <p>Suma: <span id="cart-total">0</span> zł</p>
+</div>
+
+<div class="avatar-container">
+  <img
+    src="images/moj_avatara.png"
+    id="avatar"
+    alt="Adriana">
+</div>
+
+<script>
+let cart=[];
+
+function addToCart(name,price){
+  cart.push({name,price});
+  updateCart();
+}
+
+function updateCart(){
+  const items=document.getElementById('cart-items');
+  const totalEl=document.getElementById('cart-total');
+  const count=document.getElementById('cart-count');
+  items.innerHTML='';
+  let total=0;
+
+  cart.forEach(item=>{
+    total+=item.price;
+    const li=document.createElement('li');
+    li.textContent=item.name+' – '+item.price+' zł';
+    items.appendChild(li);
+  });
+
+  totalEl.textContent=total;
+  count.textContent=cart.length;
+}
+
+function toggleCart(){
+  const popup=document.getElementById('cart-popup');
+  popup.style.display=popup.style.display==='block'?'none':'block';
+}
+
+function speak(){
+  const avatar=document.getElementById('avatar');
+  const text="Witaj. Jestem Adriana i zapraszam Cię do mojej wytwórni zmysłów. Dziękuję że jesteś";
+  const synth=window.speechSynthesis;
+  synth.cancel();
+
+  const utter=new SpeechSynthesisUtterance(text);
+  utter.lang="pl-PL";
+  utter.rate=0.95;
+  utter.pitch=1.05;
+
+  let interval=setInterval(()=>avatar.classList.toggle('talking'),200);
+  utter.onend=()=>{clearInterval(interval);avatar.classList.remove('talking');};
+
+  synth.speak(utter);
+}
+
+document.getElementById('avatar').addEventListener('click',speak);
+window.addEventListener('load',()=>setTimeout(speak,1200));
+</script>
+
+</body>
+</html>
