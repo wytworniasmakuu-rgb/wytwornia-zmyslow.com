@@ -243,7 +243,6 @@ function updateCart(){
     const li=document.createElement('li');
     li.textContent=item.name+' – '+item.price+' zł';
     
-    // przycisk usuń
     const removeBtn=document.createElement('button');
     removeBtn.textContent='Usuń';
     removeBtn.style.marginLeft='10px';
@@ -273,7 +272,7 @@ function speak(){
   const utter=new SpeechSynthesisUtterance(text);
   utter.lang="pl-PL";
   utter.rate=0.9;
-  utter.pitch=1.2; // przyjemny kobiecy głos
+  utter.pitch=1.2;
 
   let interval=setInterval(()=>avatar.classList.toggle('talking'),200);
   utter.onend=()=>{clearInterval(interval);avatar.classList.remove('talking');};
