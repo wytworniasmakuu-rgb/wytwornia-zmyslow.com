@@ -3,36 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <title>Wytwórnia Zmysłów</title>
+
 <style>
 body {
   font-family: 'Lora', serif;
   background: linear-gradient(to bottom, #f6f4f2, #ece5dd);
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   color: #4a2c18;
 }
-#avatar-container{
-  position: fixed; bottom: 20px; left: 20px; z-index: 1000;
+
+/* Avatar */
+#avatar-container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
 }
-#avatar{
-  width: 80px; height: 80px; border-radius: 50%;
-  background: #b78c60; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  position: relative; overflow: hidden;
+
+#avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #b78c60;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
-#avatar img{
-  width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+
+#avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
-#mouth{
-  position: absolute; bottom: 15px; left: 50%;
-  width: 20px; height: 6px; background: #4a2c18; border-radius: 50%;
+
+/* Usta */
+#mouth {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  width: 20px;
+  height: 6px;
+  background: #4a2c18;
+  border-radius: 50%;
   transform: translateX(-50%);
 }
-#avatar-bubble{
-  position: absolute; bottom: 100px; left: 0;
-  background: #fff3e6; padding: 10px 15px; border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: none;
-  font-size: 0.9em; max-width: 200px;
-}
-.mouth-move{
-  animation: mouthMov
 
+/* Animacja ust */
+.mouth-move {
+  animation: mouthMove 0.5s infinite alternate;
+}
+
+@keyframes mouthMove {
+  from { height: 6px; }
+  to   { height: 12px; }
+}
+
+/* Chmurka */
+#avatar-bubble {
+  position: absolute;
+  bottom: 100px;
+  left: 0;
+  background: #fff3e6;
+  padding: 10px 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  display: none;
+  font-size: 0.9em;
+  max-width: 200px;
+}
+</style>
+
+</head>
+<body>
+
+<h1 style="padding:20px;">Wytwórnia Zmysłów</h1>
+<p style="padding:20px;">Strona działa, avatar mówi 👄</p>
+
+<div id="avatar-container">
+  <div id="avatar">
+    <!-- jeśli masz obrazek, podmień src -->
+    <!-- <img src="avatar.jpg" alt="Avatar"> -->
+    <div id="mouth"></div>
+  </div>
+
+  <div id="avatar-bubble">Cześć! Jestem Twoim przewodnikiem ✨</div>
+</div>
+
+<script>
+const avatar = document.getElementById("avatar");
+const mouth = document.getElementById("mouth");
+const bubble = document.getElementById("avatar-bubble");
+
+avatar.addEventListener("click", () => {
+  bubble.style.display = "block";
+  mouth.classList.add("mouth-move");
+
+  setTimeout(() => {
+    mouth.classList.remove("mouth-move");
+    bubble.style.display = "none";
+  }, 3000);
+});
+</script>
+
+</body>
+</html>
