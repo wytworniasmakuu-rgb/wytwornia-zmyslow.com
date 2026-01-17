@@ -9,10 +9,11 @@
 <style>
 body {
   font-family: 'Lora', serif;
-  background: linear-gradient(to bottom, #f3d6dc, #e8c2cc);
+  background: linear-gradient(to bottom, #fdf1f5, #fbe4eb);
   margin: 0;
   padding: 0;
   color: #5a2c3a;
+  overflow-x: hidden;
 }
 
 h1,h2,h3 {
@@ -34,6 +35,12 @@ h3{margin:10px 0 5px 0;font-size:1.3em;}
   gap:30px;
   padding:60px 0;
   flex-wrap:wrap;
+  opacity:0;
+  animation: fadeIn 1.5s forwards;
+}
+
+@keyframes fadeIn{
+  to {opacity:1;}
 }
 
 .product{
@@ -41,20 +48,31 @@ h3{margin:10px 0 5px 0;font-size:1.3em;}
   width:260px;
   padding:20px;
   border-radius:16px;
-  box-shadow:0 5px 20px rgba(0,0,0,0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow:0 5px 25px rgba(0,0,0,0.15);
+  transition: transform 0.4s, box-shadow 0.4s;
   text-align:center;
+  opacity:0;
+  transform: translateY(30px);
+  animation: appear 0.8s forwards;
+}
+
+.product:nth-child(1){animation-delay:0.3s;}
+.product:nth-child(2){animation-delay:0.6s;}
+.product:nth-child(3){animation-delay:0.9s;}
+
+@keyframes appear{
+  to {opacity:1; transform:translateY(0);}
 }
 
 .product:hover{
-  transform:translateY(-7px);
-  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+  transform:translateY(-10px);
+  box-shadow:0 15px 35px rgba(0,0,0,0.2);
 }
 
 .product img{
   width:100%;
   border-radius:16px;
-  border:2px solid #f2ebe6;
+  border:2px solid #f9e8e9;
 }
 
 .price{
@@ -125,6 +143,7 @@ button:hover{
   padding:20px;
   display:none;
   z-index:1000;
+  transition:all 0.3s ease;
 }
 
 #cart-popup ul{list-style:none;padding:0;margin:0;}
@@ -144,6 +163,7 @@ button:hover{
   border-radius:50%;
   border:4px solid #c08a9a;
   box-shadow:0 6px 18px rgba(0,0,0,0.25);
+  transition:transform 0.2s;
 }
 
 .avatar-container img.talking{
@@ -151,8 +171,8 @@ button:hover{
 }
 
 @keyframes talk{
-  from{transform:scaleY(0.97);}
-  to{transform:scaleY(1.03);}
+  from{transform:scaleY(0.95);}
+  to{transform:scaleY(1.05);}
 }
 </style>
 </head>
@@ -164,7 +184,7 @@ button:hover{
 
 <div class="products">
   <div class="product">
-    <img src="images/swieca.png">
+    <img src="images/swieca_butik.png" alt="Świeca zapachowa">
     <h3>Świece zapachowe</h3>
     <p>Romantyczne światła</p>
     <div class="price">49 zł</div>
@@ -172,7 +192,7 @@ button:hover{
   </div>
 
   <div class="product">
-    <img src="images/mydlo.png">
+    <img src="images/mydlo_butik.png" alt="Mydła naturalne">
     <h3>Mydła naturalne</h3>
     <p>Ręcznie robione</p>
     <div class="price">19 zł</div>
@@ -180,7 +200,7 @@ button:hover{
   </div>
 
   <div class="product">
-    <img src="images/zestaw.png">
+    <img src="images/zestaw_butik.png" alt="Zestawy prezentowe">
     <h3>Zestawy prezentowe</h3>
     <p>Idealne na prezent</p>
     <div class="price">99 zł</div>
@@ -198,7 +218,7 @@ button:hover{
 
 <div class="avatar-container">
   <img
-    src="images/moj_avatara.png"
+    src="images/avatar_butik.png"
     id="avatar"
     alt="Adriana">
 </div>
@@ -218,10 +238,20 @@ function updateCart(){
   items.innerHTML='';
   let total=0;
 
-  cart.forEach(item=>{
+  cart.forEach((item,index)=>{
     total+=item.price;
     const li=document.createElement('li');
     li.textContent=item.name+' – '+item.price+' zł';
+    
+    // przycisk usuń
+    const removeBtn=document.createElement('button');
+    removeBtn.textContent='Usuń';
+    removeBtn.style.marginLeft='10px';
+    removeBtn.style.padding='2px 6px';
+    removeBtn.style.fontSize='0.8em';
+    removeBtn.onclick=()=>{cart.splice(index,1); updateCart();};
+    li.appendChild(removeBtn);
+
     items.appendChild(li);
   });
 
@@ -236,14 +266,14 @@ function toggleCart(){
 
 function speak(){
   const avatar=document.getElementById('avatar');
-  const text="Witaj. Jestem Adriana i zapraszam Cię do mojej wytwórni zmysłów. Dziękuję że jesteś";
+  const text="Witaj. Jestem Adriana i zapraszam Cię do mojej wytwórni zmysłów. Miło mi, że tu jesteś!";
   const synth=window.speechSynthesis;
   synth.cancel();
 
   const utter=new SpeechSynthesisUtterance(text);
   utter.lang="pl-PL";
-  utter.rate=0.95;
-  utter.pitch=1.05;
+  utter.rate=0.9;
+  utter.pitch=1.2; // bardziej kobiecy, przyjemny głos
 
   let interval=setInterval(()=>avatar.classList.toggle('talking'),200);
   utter.onend=()=>{clearInterval(interval);avatar.classList.remove('talking');};
