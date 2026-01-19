@@ -75,4 +75,69 @@ button{
 #cart-popup{
   position:fixed;top:90px;right:20px;width:320px;
   background:white;border-radius:24px;padding:25px;
-  box-shadow:0 10px 40px
+  box-shadow:0 10px 40px rgba(0,0,0,0.3);
+  display:none;z-index:1000;
+}
+footer{
+  background:var(--brown);color:white;text-align:center;padding:30px;margin-top:60px;
+}
+</style>
+</head>
+<body>
+<header>
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABVUAAAgACAYAAAAmDtM7AAAAAXNSR0IArs4c6QAAIABJREFUeF6U/QmSnMuynAkmhrv/ffBx6O6d" alt="Adriana">
+  <h1>Wytwórnia Zmysłów</h1>
+  <p class="subtitle">Naturalne produkty • subtelny luksus • kobieca energia</p>
+</header>
+<section class="products">
+  <div class="product">
+    <img src="images/swieca_butik.png">
+    <h3>Świece zapachowe</h3>
+    <p>Romantyczna atmosfera i relaks</p>
+    <div class="price">49 zł</div>
+    <button onclick="addToCart('Świece zapachowe',49)">Dodaj do koszyka</button>
+  </div>
+  <div class="product">
+    <img src="images/mydlo_butik.png">
+    <h3>Mydła naturalne</h3>
+    <p>Ręcznie robione, delikatne</p>
+    <div class="price">19 zł</div>
+    <button onclick="addToCart('Mydła naturalne',19)">Dodaj do koszyka</button>
+  </div>
+  <div class="product">
+    <img src="images/zestaw_butik.png">
+    <h3>Zestawy prezentowe</h3>
+    <p>Gotowy prezent premium</p>
+    <div class="price">99 zł</div>
+    <button onclick="addToCart('Zestawy prezentowe',99)">Dodaj do koszyka</button>
+  </div>
+</section>
+<div id="cart-icon" onclick="toggleCart()">🛒<span id="cart-count">0</span></div>
+<div id="cart-popup">
+  <h3>Twój koszyk</h3>
+  <ul id="cart-items"></ul>
+  <p><strong>Suma:</strong> <span id="cart-total">0</span> zł</p>
+</div>
+<footer>© 2026 Wytwórnia Zmysłów</footer>
+<script>
+let cart=[];
+function addToCart(name,price){cart.push({name,price});updateCart();}
+function updateCart(){
+  const items=document.getElementById('cart-items');
+  const totalEl=document.getElementById('cart-total');
+  const count=document.getElementById('cart-count');
+  items.innerHTML='';let total=0;
+  cart.forEach((item,i)=>{total+=item.price;
+    const li=document.createElement('li');
+    li.textContent=item.name+' – '+item.price+' zł';
+    items.appendChild(li);
+  });
+  totalEl.textContent=total;count.textContent=cart.length;
+}
+function toggleCart(){
+  const p=document.getElementById('cart-popup');
+  p.style.display=p.style.display==='block'?'none':'block';
+}
+</script>
+</body>
+</html>
