@@ -81,11 +81,14 @@ button{
 footer{
   background:var(--brown);color:white;text-align:center;padding:30px;margin-top:60px;
 }
+@keyframes talk{from{transform:scaleY(0.95);}to{transform:scaleY(1.05);}}
+.avatar-container{position:fixed;bottom:20px;left:20px;width:120px;z-index:2000;cursor:pointer;}
+.avatar-container img{width:100%;border-radius:50%;border:4px solid var(--pink);box-shadow:0 6px 18px rgba(0,0,0,0.25);} 
+.avatar-container img.talking{animation:talk .25s infinite alternate;}
 </style>
 </head>
 <body>
 <header>
-  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABVUAAAgACAYAAAAmDtM7AAAAAXNSR0IArs4c6QAAIABJREFUeF6U/QmSnMuynAkmhrv/ffBx6O6d...v82//xX/7Tn5/fv399//bta/78+fPn6/v371/f5v++fX39/vX768/X19e3b9++" alt="Adriana">
   <h1>Wytwórnia Zmysłów</h1>
   <p class="subtitle">Naturalne produkty • subtelny luksus • kobieca energia</p>
 </header>
@@ -120,8 +123,8 @@ footer{
 </div>
 <footer>© 2026 Wytwórnia Zmysłów</footer>
 
-<!-- Mówiący avatar -->
-<div class="avatar-container" onclick="speak()">
+<!-- MÓWIĄCY AVATAR -->
+<div class="avatar-container">
   <img id="avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABVUAAAgACAYAAAAmDtM7AAAAAXNSR0IArs4c6QAAIABJREFUeF6U/QmSnMuynAkmhrv/ffBx6O6d...v82//xX/7Tn5/fv399//bta/78+fPn6/v371/f5v++fX39/vX768/X19e3b9++" alt="Adriana avatar">
 </div>
 
@@ -147,7 +150,7 @@ function toggleCart(){
 
 function speak(){
   const avatar=document.getElementById('avatar');
-  const text='Witaj. Jestem Adriana i zapraszam Cię do mojej Wytwórni Zmysłów. Rozejrzyj się i wybierz coś dla siebie.';
+  const text='Witaj. Jestem Adriana. Kliknij mnie, a opowiem Ci o Wytwórni Zmysłów.';
   const synth=window.speechSynthesis;
   synth.cancel();
   const utter=new SpeechSynthesisUtterance(text);
@@ -158,7 +161,7 @@ function speak(){
   utter.onend=()=>{clearInterval(interval);avatar.classList.remove('talking');};
   synth.speak(utter);
 }
-window.addEventListener('load',()=>setTimeout(speak,1200));
+document.getElementById('avatar').addEventListener('click',speak);
 </script>
 </body>
 </html>
