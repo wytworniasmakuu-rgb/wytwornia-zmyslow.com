@@ -119,6 +119,12 @@ footer{
   <p><strong>Suma:</strong> <span id="cart-total">0</span> zł</p>
 </div>
 <footer>© 2026 Wytwórnia Zmysłów</footer>
+
+<!-- Mówiący avatar -->
+<div class="avatar-container" onclick="speak()">
+  <img id="avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABVUAAAgACAYAAAAmDtM7AAAAAXNSR0IArs4c6QAAIABJREFUeF6U/QmSnMuynAkmhrv/ffBx6O6d...v82//xX/7Tn5/fv399//bta/78+fPn6/v371/f5v++fX39/vX768/X19e3b9++" alt="Adriana avatar">
+</div>
+
 <script>
 let cart=[];
 function addToCart(name,price){cart.push({name,price});updateCart();}
@@ -127,7 +133,7 @@ function updateCart(){
   const totalEl=document.getElementById('cart-total');
   const count=document.getElementById('cart-count');
   items.innerHTML='';let total=0;
-  cart.forEach((item,i)=>{total+=item.price;
+  cart.forEach((item)=>{total+=item.price;
     const li=document.createElement('li');
     li.textContent=item.name+' – '+item.price+' zł';
     items.appendChild(li);
@@ -138,6 +144,21 @@ function toggleCart(){
   const p=document.getElementById('cart-popup');
   p.style.display=p.style.display==='block'?'none':'block';
 }
+
+function speak(){
+  const avatar=document.getElementById('avatar');
+  const text='Witaj. Jestem Adriana i zapraszam Cię do mojej Wytwórni Zmysłów. Rozejrzyj się i wybierz coś dla siebie.';
+  const synth=window.speechSynthesis;
+  synth.cancel();
+  const utter=new SpeechSynthesisUtterance(text);
+  utter.lang='pl-PL';
+  utter.rate=0.9;
+  utter.pitch=1.1;
+  let interval=setInterval(()=>avatar.classList.toggle('talking'),200);
+  utter.onend=()=>{clearInterval(interval);avatar.classList.remove('talking');};
+  synth.speak(utter);
+}
+window.addEventListener('load',()=>setTimeout(speak,1200));
 </script>
 </body>
 </html>
